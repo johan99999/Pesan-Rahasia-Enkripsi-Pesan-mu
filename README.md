@@ -1,4 +1,4 @@
-<img src='![logo](https://github.com/user-attachments/assets/2fb5132e-5c91-49af-839a-59a3cfc1b60b)
+<img src='https://github.com/user-attachments/assets/2fb5132e-5c91-49af-839a-59a3cfc1b60b
 ' alt='logo' width="300" height="300">
 
 
