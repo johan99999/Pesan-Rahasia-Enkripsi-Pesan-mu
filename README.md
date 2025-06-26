@@ -53,7 +53,7 @@ LOGIC PEMROGRAMAN
    * Keterangan : UJICOBA LOGIKA ENKRIPSI MENGGUNAKAN BAHASA C++ DI CODEBLOCK
 ==============================================================================================  
    ![image](https://github.com/user-attachments/assets/f0c03dda-f480-41e1-923a-4bb3b94cd5bf)
-   * Keterangan : UJICOBA LOGIKA ENKRIPSI MENGGUNAKAN BAHASA C++ DI CODEBLOCK
+   * Keterangan : UJICOBA LOGIKA DEKRIPSI MENGGUNAKAN BAHASA C++ DI CODEBLOCK
 ==============================================================================================
    
 
