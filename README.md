@@ -48,10 +48,12 @@ LOGIC PEMROGRAMAN
    * ICKGIZPCACUHTBTJIWIUWQCUZTPNN
    * SEMANGATBELAJARUNTUKMASADEPAN
 
+==============================================================================================
    ![image](https://github.com/user-attachments/assets/d09e1867-f79d-47cd-a9d4-3f5cf1bdd9b4)
    * Keterangan : UJICOBA LOGIKA ENKRIPSI MENGGUNAKAN BAHASA C++ DI CODEBLOCK
+==============================================================================================  
    ![image](https://github.com/user-attachments/assets/f0c03dda-f480-41e1-923a-4bb3b94cd5bf)
    * Keterangan : UJICOBA LOGIKA ENKRIPSI MENGGUNAKAN BAHASA C++ DI CODEBLOCK
-
+==============================================================================================
    
 
