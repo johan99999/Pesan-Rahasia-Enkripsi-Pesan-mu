@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:pesan_rahasia_enkripsi_pesan_mu/screens/home_screen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Timer 3 detik lalu pindah ke HomeScreen
+    Future.delayed(Duration(seconds: 10), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ), // Ganti ke nama screen berikutnya
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +35,7 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(), // Dorong ke tengah
+            Spacer(),
             Center(
               child: Image.asset(
                 'assets/images/logo.jpg',
@@ -24,7 +45,7 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Spacer(), // Dorong sisa ke bawah
+            Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: Text(
