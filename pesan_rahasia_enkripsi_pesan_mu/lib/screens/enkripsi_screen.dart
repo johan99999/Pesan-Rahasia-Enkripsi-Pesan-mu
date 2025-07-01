@@ -1,35 +1,57 @@
 import 'package:flutter/material.dart';
 
 class SetelanMatriksEnkripsiPage extends StatelessWidget {
+  // Dummy controller list, bisa kamu sambungkan dengan logika nanti
+  final List<TextEditingController> matrix2x2Controllers = List.generate(4, (_) => TextEditingController());
+  final List<TextEditingController> matrix3x3Controllers = List.generate(9, (_) => TextEditingController());
+
+  SetelanMatriksEnkripsiPage({super.key}) {
+    // Default value sesuai desain kamu
+    final default2x2 = ['3', '3', '2', '5'];
+    final default3x3 = ['6', '24', '1', '13', '16', '10', '20', '17', '15'];
+
+    for (int i = 0; i < 4; i++) {
+      matrix2x2Controllers[i].text = default2x2[i];
+    }
+    for (int i = 0; i < 9; i++) {
+      matrix3x3Controllers[i].text = default3x3[i];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Setelan Matriks Enkripsi'),
+        title: const Text('Setelan Matriks Enkripsi'),
         backgroundColor: Colors.black,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset('assets/images/download.jpg', fit: BoxFit.cover),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                toggleButtons(context),
-                const SizedBox(height: 20),
-                Text("2 X 2", style: styleWhite()),
-                matrixGrid(["3", "3", "2", "5"], 2),
-                const SizedBox(height: 20),
-                Text("3 X 3", style: styleWhite()),
-                matrixGrid(["6", "24", "1", "13", "16", "10", "20", "17", "15"], 3),
-              ],
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset('assets/images/download.jpg', fit: BoxFit.cover),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Column(
+                  children: [
+                    toggleButtons(context),
+                    const SizedBox(height: 20),
+                    Text("2 X 2", style: styleWhite()),
+                    matrixGridEditable(matrix2x2Controllers, 2),
+                    const SizedBox(height: 20),
+                    Text("3 X 3", style: styleWhite()),
+                    matrixGridEditable(matrix3x3Controllers, 3),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -41,7 +63,7 @@ class SetelanMatriksEnkripsiPage extends StatelessWidget {
         ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
           onPressed: () {}, // Sudah di halaman Enkripsi
-          child: Text("ENKRIPSI"),
+          child: const Text("ENKRIPSI"),
         ),
         const SizedBox(width: 10),
         ElevatedButton(
@@ -49,33 +71,60 @@ class SetelanMatriksEnkripsiPage extends StatelessWidget {
           onPressed: () {
             Navigator.pushReplacementNamed(context, '/dekripsi');
           },
-          child: Text("DEKRIPSI"),
+          child: const Text("DEKRIPSI"),
         ),
       ],
     );
   }
 
-  Widget matrixGrid(List<String> values, int size) {
-    return GridView.count(
-      crossAxisCount: size,
-      shrinkWrap: true,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      children: values
-          .map((val) => Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                alignment: Alignment.center,
-                child: Text(val, style: TextStyle(fontSize: 18)),
-              ))
-          .toList(),
-    );
-  }
+  Widget matrixGridEditable(List<TextEditingController> controllers, int size) {
+  return Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 250), // Kontrol lebar maksimal
+      child: GridView.builder(
+        itemCount: controllers.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: size,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+          childAspectRatio: 1, // Pastikan kotak persegi
+        ),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(6),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 3,
+                  offset: const Offset(1, 1),
+                )
+              ],
+            ),
+            alignment: Alignment.center,
+            child: TextField(
+              controller: controllers[index],
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 10),
+              ),
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
 
   TextStyle styleWhite() {
-    return TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
+    return const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
   }
 }
