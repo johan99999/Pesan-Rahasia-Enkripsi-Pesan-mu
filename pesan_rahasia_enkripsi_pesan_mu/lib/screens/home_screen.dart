@@ -89,7 +89,9 @@ class HomeScreen extends StatelessWidget {
                         backgroundColor: Colors.red,
                       ),
                       onPressed: () {
-                        // Logika Enkripsi
+                        final input = inputController.text;
+                        final output = prosesEnkripsi(input, enkripsi: true); // Enkripsi
+                        outputController.text = output;
                       },
                       child: const Text(
                       "ENKRIPSI",
@@ -101,7 +103,9 @@ class HomeScreen extends StatelessWidget {
                         backgroundColor: Colors.green,
                       ),
                       onPressed: () {
-                        // Logika Dekripsi
+                        final input = inputController.text;
+                        final output = prosesEnkripsi(input, enkripsi: false); // Dekripsi
+                        outputController.text = output;
                       },
                       child: const Text(
                       "DEKRIPSI",
@@ -153,3 +157,85 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+String cleanText(String input) {
+  return input.replaceAll(RegExp(r'[^a-zA-Z]'), '').toUpperCase();
+}
+
+List<int> convertToNumber(String text) {
+  return text.codeUnits.map((c) => c - 65).toList();
+}
+
+String angkaKeHuruf(int angka) {
+  return String.fromCharCode((angka % 26) + 65);
+}
+
+List<int> enkripsi2x2(int a, int b) {
+  final k = [3, 3, 2, 5];
+  final e1 = (k[0] * a + k[1] * b) % 26;
+  final e2 = (k[2] * a + k[3] * b) % 26;
+  return [e1, e2];
+}
+
+List<int> enkripsi3x3(int a, int b, int c) {
+  final k = [6, 24, 1, 13, 16, 10, 20, 17, 15];
+  final e1 = (k[0] * a + k[1] * b + k[2] * c) % 26;
+  final e2 = (k[3] * a + k[4] * b + k[5] * c) % 26;
+  final e3 = (k[6] * a + k[7] * b + k[8] * c) % 26;
+  return [e1, e2, e3];
+}
+
+List<int> dekripsi2x2(int a, int b) {
+  final k = [15, 17, 20, 9];
+  final d1 = (k[0] * a + k[1] * b) % 26;
+  final d2 = (k[2] * a + k[3] * b) % 26;
+  return [d1, d2];
+}
+
+List<int> dekripsi3x3(int a, int b, int c) {
+  final k = [8, 5, 10, 21, 8, 21, 21, 12, 8];
+  final d1 = (k[0] * a + k[1] * b + k[2] * c) % 26;
+  final d2 = (k[3] * a + k[4] * b + k[5] * c) % 26;
+  final d3 = (k[6] * a + k[7] * b + k[8] * c) % 26;
+  return [d1, d2, d3];
+}
+
+String prosesEnkripsi(String input, {bool enkripsi = true}) {
+  final angka = convertToNumber(cleanText(input));
+  final hasil = <int>[];
+  int i = 0;
+
+  while (i < angka.length) {
+    final sisa = angka.length - i;
+
+    if (sisa >= 6 || sisa == 3) {
+      final bagian = angka.sublist(i, i + 3);
+      hasil.addAll(enkripsi ? enkripsi3x3(bagian[0], bagian[1], bagian[2])
+                             : dekripsi3x3(bagian[0], bagian[1], bagian[2]));
+      i += 3;
+    } else if (sisa == 5) {
+      final b3 = angka.sublist(i, i + 3);
+      final b2 = angka.sublist(i + 3, i + 5);
+      hasil.addAll(enkripsi ? enkripsi3x3(b3[0], b3[1], b3[2])
+                            : dekripsi3x3(b3[0], b3[1], b3[2]));
+      hasil.addAll(enkripsi ? enkripsi2x2(b2[0], b2[1])
+                            : dekripsi2x2(b2[0], b2[1]));
+      i += 5;
+    } else if (sisa == 4) {
+      hasil.addAll(enkripsi ? enkripsi2x2(angka[i], angka[i + 1])
+                            : dekripsi2x2(angka[i], angka[i + 1]));
+      hasil.addAll(enkripsi ? enkripsi2x2(angka[i + 2], angka[i + 3])
+                            : dekripsi2x2(angka[i + 2], angka[i + 3]));
+      i += 4;
+    } else if (sisa == 2) {
+      hasil.addAll(enkripsi ? enkripsi2x2(angka[i], angka[i + 1])
+                            : dekripsi2x2(angka[i], angka[i + 1]));
+      i += 2;
+    } else {
+      break;
+    }
+  }
+
+  return hasil.map(angkaKeHuruf).join();
+}
+
