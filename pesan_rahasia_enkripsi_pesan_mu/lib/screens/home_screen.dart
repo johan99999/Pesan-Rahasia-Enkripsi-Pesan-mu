@@ -21,7 +21,51 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Background binari kamu
+  backgroundColor: Colors.black,
+  appBar: AppBar(
+    backgroundColor: Colors.black,
+    elevation: 0,
+    iconTheme: IconThemeData(color: Colors.white), // burger icon jadi putih
+  ),
+  drawer: Drawer(
+    backgroundColor: Color(0xFF1A005D), // warna drawer sesuai Figma kamu (ungu gelap)
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        DrawerHeader(
+          decoration: BoxDecoration(
+            color: Color(0xFF1A005D),
+          ),
+          child: Column(
+            children: [
+              Image.asset('assets/images/logo.jpg', width: 100, height: 100),
+              SizedBox(height: 10),
+              Text('VERSI 1.0.0', style: TextStyle(color: Colors.white)),
+            ],
+          ),
+        ),
+        ListTile(
+          title: Text('Ganti Matriks Kunci', style: TextStyle(color: Colors.white)),
+          onTap: () {
+            // TODO: Navigasi ke halaman pengaturan matriks
+          },
+        ),
+        ListTile(
+          title: Text('Tentang', style: TextStyle(color: Colors.white)),
+          onTap: () {
+            // TODO: Navigasi ke halaman tentang
+          },
+        ),
+        ListTile(
+          title: Text('Keluar', style: TextStyle(color: Colors.white)),
+          onTap: () {
+            SystemNavigator.pop(); // keluar dari aplikasi
+          },
+        ),
+      ],
+    ),
+  ),
+ // Background binari kamu
       body: Stack(
         children: [
           // Gambar latar belakang
