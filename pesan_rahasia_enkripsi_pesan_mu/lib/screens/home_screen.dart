@@ -44,12 +44,13 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        ListTile(
+       ListTile(
           title: Text('Ganti Matriks Kunci', style: TextStyle(color: Colors.white)),
           onTap: () {
-            // TODO: Navigasi ke halaman pengaturan matriks
-          },
-        ),
+          Navigator.pushNamed(context, '/enkripsi'); // langsung ke setelan enkripsi
+        },
+      ),
+
         ListTile(
           title: Text('Tentang', style: TextStyle(color: Colors.white)),
           onTap: () {
