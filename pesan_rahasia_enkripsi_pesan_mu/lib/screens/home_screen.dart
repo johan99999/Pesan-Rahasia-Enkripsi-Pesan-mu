@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pesan_rahasia_enkripsi_pesan_mu/screens/dekripsi_screen.dart';
+import 'package:pesan_rahasia_enkripsi_pesan_mu/screens/enkripsi_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,10 +27,10 @@ class HomeScreen extends StatelessWidget {
   appBar: AppBar(
     backgroundColor: Colors.black,
     elevation: 0,
-    iconTheme: IconThemeData(color: Colors.white), // burger icon jadi putih
+    iconTheme: IconThemeData(color: Colors.white),
   ),
   drawer: Drawer(
-    backgroundColor: Color(0xFF1A005D), // warna drawer sesuai Figma kamu (ungu gelap)
+    backgroundColor: Color(0xFF1A005D),
     child: ListView(
       padding: EdgeInsets.zero,
       children: [
@@ -47,33 +49,29 @@ class HomeScreen extends StatelessWidget {
        ListTile(
           title: Text('Ganti Matriks Kunci', style: TextStyle(color: Colors.white)),
           onTap: () {
-          Navigator.pushNamed(context, '/enkripsi'); // langsung ke setelan enkripsi
+          Navigator.pushNamed(context, '/enkripsi');
         },
       ),
 
         ListTile(
           title: Text('Tentang', style: TextStyle(color: Colors.white)),
           onTap: () {
-            // TODO: Navigasi ke halaman tentang
           },
         ),
         ListTile(
           title: Text('Keluar', style: TextStyle(color: Colors.white)),
           onTap: () {
-            SystemNavigator.pop(); // keluar dari aplikasi
+            SystemNavigator.pop();
           },
         ),
       ],
     ),
   ),
- // Background binari kamu
       body: Stack(
         children: [
-          // Gambar latar belakang
           Positioned.fill(
             child: Image.asset('assets/images/download.jpg', fit: BoxFit.cover),
           ),
-          // Konten utama dengan padding
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -90,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         final input = inputController.text;
-                        final output = prosesEnkripsi(input, enkripsi: true); // Enkripsi
+                        final output = prosesEnkripsi(input, enkripsi: true); 
                         outputController.text = output;
                       },
                       child: const Text(
@@ -104,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         final input = inputController.text;
-                        final output = prosesEnkripsi(input, enkripsi: false); // Dekripsi
+                        final output = prosesEnkripsi(input, enkripsi: false);
                         outputController.text = output;
                       },
                       child: const Text(
@@ -171,14 +169,14 @@ String angkaKeHuruf(int angka) {
 }
 
 List<int> enkripsi2x2(int a, int b) {
-  final k = [3, 3, 2, 5];
+  final k = MatriksKunciGlobalEnkripsi.kunci2x2;
   final e1 = (k[0] * a + k[1] * b) % 26;
   final e2 = (k[2] * a + k[3] * b) % 26;
   return [e1, e2];
 }
 
 List<int> enkripsi3x3(int a, int b, int c) {
-  final k = [6, 24, 1, 13, 16, 10, 20, 17, 15];
+  final k = MatriksKunciGlobalEnkripsi.kunci3x3;
   final e1 = (k[0] * a + k[1] * b + k[2] * c) % 26;
   final e2 = (k[3] * a + k[4] * b + k[5] * c) % 26;
   final e3 = (k[6] * a + k[7] * b + k[8] * c) % 26;
@@ -186,14 +184,14 @@ List<int> enkripsi3x3(int a, int b, int c) {
 }
 
 List<int> dekripsi2x2(int a, int b) {
-  final k = [15, 17, 20, 9];
+  final k = MatriksKunciGlobalDekripsi.kunci2x2;
   final d1 = (k[0] * a + k[1] * b) % 26;
   final d2 = (k[2] * a + k[3] * b) % 26;
   return [d1, d2];
 }
 
 List<int> dekripsi3x3(int a, int b, int c) {
-  final k = [8, 5, 10, 21, 8, 21, 21, 12, 8];
+  final k = MatriksKunciGlobalDekripsi.kunci3x3;
   final d1 = (k[0] * a + k[1] * b + k[2] * c) % 26;
   final d2 = (k[3] * a + k[4] * b + k[5] * c) % 26;
   final d3 = (k[6] * a + k[7] * b + k[8] * c) % 26;
