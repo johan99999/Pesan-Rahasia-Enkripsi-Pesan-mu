@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SetelanMatriksEnkripsiPage extends StatelessWidget {
-  // Dummy controller list, bisa kamu sambungkan dengan logika nanti
   final List<TextEditingController> matrix2x2Controllers = List.generate(4, (_) => TextEditingController());
   final List<TextEditingController> matrix3x3Controllers = List.generate(9, (_) => TextEditingController());
 
   SetelanMatriksEnkripsiPage({super.key}) {
-    // Default value sesuai desain kamu
     final default2x2 = ['3', '3', '2', '5'];
     final default3x3 = ['6', '24', '1', '13', '16', '10', '20', '17', '15'];
 
@@ -23,7 +21,7 @@ class SetelanMatriksEnkripsiPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Setelan Matriks Enkripsi'),
+        title: const Text('Setelan Matriks Enkripsi', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -62,8 +60,8 @@ class SetelanMatriksEnkripsiPage extends StatelessWidget {
       children: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-          onPressed: () {}, // Sudah di halaman Enkripsi
-          child: const Text("ENKRIPSI"),
+          onPressed: () {},
+          child: const Text("ENKRIPSI", style: TextStyle(color: Colors.white)),
         ),
         const SizedBox(width: 10),
         ElevatedButton(
@@ -71,7 +69,7 @@ class SetelanMatriksEnkripsiPage extends StatelessWidget {
           onPressed: () {
             Navigator.pushReplacementNamed(context, '/dekripsi');
           },
-          child: const Text("DEKRIPSI"),
+          child: const Text("DEKRIPSI", style: TextStyle(color: Colors.white)),
         ),
       ],
     );
@@ -80,14 +78,14 @@ class SetelanMatriksEnkripsiPage extends StatelessWidget {
   Widget matrixGridEditable(List<TextEditingController> controllers, int size) {
   return Center(
     child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 250), // Kontrol lebar maksimal
+      constraints: const BoxConstraints(maxWidth: 250),
       child: GridView.builder(
         itemCount: controllers.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: size,
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
-          childAspectRatio: 1, // Pastikan kotak persegi
+          childAspectRatio: 1,
         ),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),

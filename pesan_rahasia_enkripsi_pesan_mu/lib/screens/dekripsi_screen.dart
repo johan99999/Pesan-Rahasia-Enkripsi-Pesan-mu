@@ -12,7 +12,6 @@ class SetelanMatriksDekripsiPage extends StatelessWidget {
   );
 
   SetelanMatriksDekripsiPage({super.key}) {
-    // Default value sesuai desain kamu
     final default2x2 = ['15', '17', '20', '9'];
     final default3x3 = ['8', '5', '10', '21', '8', '21', '21', '12', '8'];
 
@@ -29,7 +28,7 @@ class SetelanMatriksDekripsiPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Setelan Matriks Enkripsi'),
+        title: const Text('Setelan Matriks Enkripsi', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -73,14 +72,14 @@ class SetelanMatriksDekripsiPage extends StatelessWidget {
           style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
           onPressed: () {
             Navigator.pushReplacementNamed(context, '/enkripsi');
-          }, // Sudah di halaman Enkripsi
-          child: const Text("ENKRIPSI"),
+          },
+          child: const Text("ENKRIPSI", style: TextStyle(color: Colors.white)),
         ),
         const SizedBox(width: 10),
         ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
           onPressed: () {},
-          child: const Text("DEKRIPSI"),
+          child: const Text("DEKRIPSI", style: TextStyle(color: Colors.white)),
         ),
       ],
     );
@@ -91,14 +90,14 @@ class SetelanMatriksDekripsiPage extends StatelessWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(
           maxWidth: 250,
-        ), // Kontrol lebar maksimal
-        child: GridView.builder(
+        ),
+          child: GridView.builder(
           itemCount: controllers.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: size,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
-            childAspectRatio: 1, // Pastikan kotak persegi
+            childAspectRatio: 1,
           ),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
