@@ -23,50 +23,56 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  backgroundColor: Colors.black,
-  appBar: AppBar(
-    backgroundColor: Colors.black,
-    elevation: 0,
-    iconTheme: IconThemeData(color: Colors.white),
-  ),
-  drawer: Drawer(
-    backgroundColor: Color(0xFF1A005D),
-    child: ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        DrawerHeader(
-          decoration: BoxDecoration(
-            color: Color(0xFF1A005D),
-          ),
-          child: Column(
-            children: [
-              Image.asset('assets/images/logo.jpg', width: 100, height: 100),
-              SizedBox(height: 10),
-              Text('VERSI 1.0.0', style: TextStyle(color: Colors.white)),
-            ],
-          ),
-        ),
-       ListTile(
-          title: Text('Ganti Matriks Kunci', style: TextStyle(color: Colors.white)),
-          onTap: () {
-          Navigator.pushNamed(context, '/enkripsi');
-        },
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
+      drawer: Drawer(
+        backgroundColor: Color(0xFF1A005D),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Color(0xFF1A005D)),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/images/logo.jpg',
+                    width: 100,
+                    height: 100,
+                  ),
+                  SizedBox(height: 10),
+                  Text('VERSI 1.0.0', style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Ganti Matriks Kunci',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/enkripsi');
+              },
+            ),
 
-        ListTile(
-          title: Text('Tentang', style: TextStyle(color: Colors.white)),
-          onTap: () {
-          },
+            ListTile(
+              title: Text('Tentang', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.pushNamed(context, '/tentang');
+              },
+            ),
+            ListTile(
+              title: Text('Keluar', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                SystemNavigator.pop();
+              },
+            ),
+          ],
         ),
-        ListTile(
-          title: Text('Keluar', style: TextStyle(color: Colors.white)),
-          onTap: () {
-            SystemNavigator.pop();
-          },
-        ),
-      ],
-    ),
-  ),
+      ),
       body: Stack(
         children: [
           Positioned.fill(
@@ -88,13 +94,13 @@ class HomeScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         final input = inputController.text;
-                        final output = prosesEnkripsi(input, enkripsi: true); 
+                        final output = prosesEnkripsi(input, enkripsi: true);
                         outputController.text = output;
                       },
                       child: const Text(
-                      "ENKRIPSI",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                        "ENKRIPSI",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -106,9 +112,9 @@ class HomeScreen extends StatelessWidget {
                         outputController.text = output;
                       },
                       child: const Text(
-                      "DEKRIPSI",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                        "DEKRIPSI",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ],
                 ),
@@ -208,26 +214,42 @@ String prosesEnkripsi(String input, {bool enkripsi = true}) {
 
     if (sisa >= 6 || sisa == 3) {
       final bagian = angka.sublist(i, i + 3);
-      hasil.addAll(enkripsi ? enkripsi3x3(bagian[0], bagian[1], bagian[2])
-                             : dekripsi3x3(bagian[0], bagian[1], bagian[2]));
+      hasil.addAll(
+        enkripsi
+            ? enkripsi3x3(bagian[0], bagian[1], bagian[2])
+            : dekripsi3x3(bagian[0], bagian[1], bagian[2]),
+      );
       i += 3;
     } else if (sisa == 5) {
       final b3 = angka.sublist(i, i + 3);
       final b2 = angka.sublist(i + 3, i + 5);
-      hasil.addAll(enkripsi ? enkripsi3x3(b3[0], b3[1], b3[2])
-                            : dekripsi3x3(b3[0], b3[1], b3[2]));
-      hasil.addAll(enkripsi ? enkripsi2x2(b2[0], b2[1])
-                            : dekripsi2x2(b2[0], b2[1]));
+      hasil.addAll(
+        enkripsi
+            ? enkripsi3x3(b3[0], b3[1], b3[2])
+            : dekripsi3x3(b3[0], b3[1], b3[2]),
+      );
+      hasil.addAll(
+        enkripsi ? enkripsi2x2(b2[0], b2[1]) : dekripsi2x2(b2[0], b2[1]),
+      );
       i += 5;
     } else if (sisa == 4) {
-      hasil.addAll(enkripsi ? enkripsi2x2(angka[i], angka[i + 1])
-                            : dekripsi2x2(angka[i], angka[i + 1]));
-      hasil.addAll(enkripsi ? enkripsi2x2(angka[i + 2], angka[i + 3])
-                            : dekripsi2x2(angka[i + 2], angka[i + 3]));
+      hasil.addAll(
+        enkripsi
+            ? enkripsi2x2(angka[i], angka[i + 1])
+            : dekripsi2x2(angka[i], angka[i + 1]),
+      );
+      hasil.addAll(
+        enkripsi
+            ? enkripsi2x2(angka[i + 2], angka[i + 3])
+            : dekripsi2x2(angka[i + 2], angka[i + 3]),
+      );
       i += 4;
     } else if (sisa == 2) {
-      hasil.addAll(enkripsi ? enkripsi2x2(angka[i], angka[i + 1])
-                            : dekripsi2x2(angka[i], angka[i + 1]));
+      hasil.addAll(
+        enkripsi
+            ? enkripsi2x2(angka[i], angka[i + 1])
+            : dekripsi2x2(angka[i], angka[i + 1]),
+      );
       i += 2;
     } else {
       break;
@@ -236,4 +258,3 @@ String prosesEnkripsi(String input, {bool enkripsi = true}) {
 
   return hasil.map(angkaKeHuruf).join();
 }
-
