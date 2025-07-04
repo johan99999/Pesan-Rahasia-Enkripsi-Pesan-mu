@@ -10,6 +10,8 @@ Anggota Kelompok :
 * Rizky Oktoreza (2311500001)
 * Harmin Abdul Maryanto (2311500099)
 
+Video Presentasi : https://www.instagram.com/p/DLrh1hWPDKr/
+
 Aplikasi pengiriman pesan rahasia enkripsi & dekripsi hill cipher
 * cek kondisi dan jumlah kalimat yang akan di enkripsi
 * masukkan kalimat/pesan yang akan di enkripsi
